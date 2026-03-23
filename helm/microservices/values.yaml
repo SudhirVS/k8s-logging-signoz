@@ -1,11 +1,11 @@
 namespace: microservices
 
 frontend:
-  image: frontend:v1
+  image: ranjakube/signoz-frontend:v1
   replicas: 2
 
 backend:
-  image: backend:v1
+  image: ranjakube/signoz-backend:v1
   replicas: 2
 
   env:
