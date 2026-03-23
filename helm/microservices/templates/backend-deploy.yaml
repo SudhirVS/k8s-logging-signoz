@@ -1,0 +1,29 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: backend
+  namespace: {{ .Values.namespace }}
+spec:
+  replicas: {{ .Values.backend.replicas }}
+  selector:
+    matchLabels:
+      app: backend
+  template:
+    metadata:
+      labels:
+        app: backend
+    spec:
+      containers:
+      - name: backend
+        image: {{ .Values.backend.image }}
+        ports:
+        - containerPort: 5000
+
+        env:
+        - name: POSTGRES_HOST
+          value: {{ .Values.backend.env.POSTGRES_HOST }}
+
+        readinessProbe:
+          httpGet:
+            path: /health
+            port: 5000

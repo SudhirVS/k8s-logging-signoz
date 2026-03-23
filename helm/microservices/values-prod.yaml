@@ -1,0 +1,8 @@
+frontend:
+  replicas: 4
+
+backend:
+  replicas: 4
+
+postgres:
+  storage: 5Gi
