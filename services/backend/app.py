@@ -15,15 +15,19 @@ def get_db_connection():
 
 # Retry DB connection (important in K8s)
 def wait_for_db():
-    while True:
+    retries = 10
+    while retries > 0:
         try:
             conn = get_db_connection()
             conn.close()
             print("Connected to DB ✅")
-            break
-        except Exception as e:
+            return
+        except:
             print("Waiting for DB ⏳...")
-            time.sleep(2)
+            retries -= 1
+            time.sleep(3)
+
+    print("DB not reachable ❌ Starting anyway...")
 
 wait_for_db()
 
